@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Défis Aléatoires - Challenge Mania</title>
+  <link rel="stylesheet" href="dual.css">
+  <style>@import url('https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap');</style>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+  
+  <header>
+      <nav class="navbar" aria-label="Navigation principale">
+     <div class="logo">Challenge Mania</div>
+      <ul class="nav-links">
+        <li><a href="index.html" aria-label="Aller à la page d'accueil">Accueil</a></li>
+        <li><a href="#about" aria-label="En savoir plus sur nous">À propos</a></li>
+        <li><a href="#services" aria-label="Découvrir nos services">Services</a></li>
+        <li><a href="#contact" aria-label="Nous contacter">Contact</a></li>
+      </ul>
+      <div class="burger" aria-label="Menu">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+    </nav>    
+  </header>
+  
+  <main>
+  <section>
+  <div class="challenge-box">
+    <h1 id="challenge-title">Défi en cours</h1>
+    <p id="challenge-description">Prêt à relever le défi ?</p>
+
+    <div id="countdown">30</div> <!-- Compte à rebours -->
+
+    <input type="text" id="userInput" placeholder="Votre réponse ici" />
+    <br>
+    <button class="btn-validate" id="validate">Valider</button>
+    <button class="btn-abandon" id="abandon">Abandonner</button>
+    <button class="btn-new-challenge" id="new-challenge">Nouveau Défi</button>
+  </div>
+</section>
+</main>
+
+<footer>
+  Samboufamilly.entertaiment™
+</footer>
+</body>
+
+ 
+  
+  <script>
+    // Liste des défis
+const challenges = [
+  { title: "Chante !", description: "Chante une chanson populaire à haute voix.", answer: "terminé", autovalidate: true },
+  { title: "Selfie inversé !", description: "Prends un selfie en te mettant à l'envers (la tête en bas).", answer: "", autovalidate: true  },
+  { title: "Danse !", description: "Fais une danse ridicule pendant 30 secondes devant tout le monde.", answer: "", autovalidate: true  },
+  { title: "Mime un animal !", description: "Imite le bruit et les mouvements d'une vache pendant 10 secondes.", answer: "" , autovalidate: true},
+  { title: "Appelle un ami !", description: "Appelle un ami et dis-lui que tu l'aimes sans explication.", answer: "" ,autovalidate: true},
+  { title: "Comptez !", description: "Comptez à l'envers de 20 à 0 sans vous tromper.", answer: "", autovalidate: true},
+  { title: "Écrivez avec vos pieds !", description: "Écris ton prénom avec tes pieds sur le sol.", answer: "" , autovalidate: true},
+  { title: "Partage une honte !", description: "Partage une des situations les plus embarrassantes que tu as vécues.", answer: "" , autovalidate: true},
+  { title: "Recrée une pub !", description: "Rejoue une publicité célèbre comme si tu étais l'acteur principal.", answer: "" , autovalidate: true},
+  { title: "Yeux bandés !", description: "Essaye de te brosser les cheveux ou de dessiner une étoile avec les yeux bandés.", answer: "", autovalidate: true},
+  { title: "Invente un mot !", description: "Crée un nouveau mot et explique sa signification.", answer: "" , autovalidate: true},
+  { title: "Danse silencieuse !", description: "Danse sans musique et laisse les autres deviner ce que tu écoutes.", answer: "" , autovalidate: true},
+  { title: "Accents !", description: "Parle avec un accent différent pendant 2 minutes.", answer: "" , autovalidate: true},
+  { title: "Équilibre !", description: "Tiens en équilibre sur une jambe pendant 20 secondes.", answer: "" , autovalidate: true},
+  { title: "Grimace !", description: "Fais la grimace la plus étrange possible et tiens-la pendant 10 secondes.", answer: "" , autovalidate: true},
+  { title: "Écrire avec la main gauche !", description: "Écris 'Je suis génial' avec ta main non dominante.", answer: "je suis génial" },
+  { title: "Bruits d'animaux !", description: "Fais les bruits de trois animaux différents en 10 secondes.", answer: "", autovalidate: true},
+  { title: "Tic-tac !", description: "Marche à reculons autour de la pièce en faisant le bruit d'une horloge.", answer: "" , autovalidate: true},
+  { title: "Blague improvisée !", description: "Raconte une blague que tu inventes sur-le-champ.", answer: "" , autovalidate: true},
+  { title: "Bizarre !", description: "Change ton prénom pour quelque chose d'absurde pendant 5 minutes.", answer: "", autovalidate: true},
+  { title: "Selfie animal !", description: "Prends un selfie en imitant un animal de ton choix.", answer: "" , autovalidate: true},
+  { title: "Mot interdit !", description: "Choisis un mot interdit (exemple : 'oui') et ne le dis pas pendant 3 minutes.", answer: "" , autovalidate: true},
+  { title: "Défi physique !", description: "Fais le tour de la pièce en sautillant sur un pied.", answer: "" , autovalidate: true}
+];
+
+let countdown = 30; // Temps pour le compte à rebours
+let timer;
+
+// Références aux éléments HTML
+const countdownElement = document.getElementById("countdown");
+const titleElement = document.getElementById("challenge-title");
+const descriptionElement = document.getElementById("challenge-description");
+const userInput = document.getElementById("userInput");
+const validateButton = document.getElementById("validate");
+const abandonButton = document.getElementById("abandon");
+const newChallengeButton = document.getElementById("new-challenge");
+
+// Fonction pour démarrer un nouveau défi
+function startNewChallenge() {
+    // Choisir un défi aléatoire
+    const randomChallenge = challenges[Math.floor(Math.random() * challenges.length)];
+    titleElement.textContent = randomChallenge.title;
+    descriptionElement.textContent = randomChallenge.description;
+    userInput.value = ""; // Réinitialiser la réponse
+    countdown = 30; // Réinitialiser le compte à rebours
+    startTimer(randomChallenge.answer); // Démarrer le compte à rebours
+}
+
+// Fonction pour démarrer le compte à rebours
+function startTimer(correctAnswer) {
+    clearInterval(timer); // Réinitialiser tout compte à rebours précédent
+    countdownElement.textContent = countdown;
+
+    timer = setInterval(() => {
+        if (countdown > 0) {
+            countdown--;
+            countdownElement.textContent = countdown;
+        } else {
+            clearInterval(timer);
+            alert("Temps écoulé ! Vous avez perdu le défi.");
+        }
+    }, 1000);
+
+    // Validation de la réponse
+    validateButton.onclick = () => {
+        if (userInput.value.toLowerCase().trim() === correctAnswer.toLowerCase().trim()) {
+            clearInterval(timer);
+            alert("Bravo ! C'est la bonne réponse.");
+            startNewChallenge(); // Lancer un nouveau défi automatiquement après une bonne réponse
+        } else {
+            alert("Mauvaise réponse, essayez encore !");
+        }
+    };
+}
+
+// Abandon du défi
+abandonButton.onclick = () => {
+    if (confirm("Êtes-vous sûr de vouloir abandonner ?")) {
+        alert("Défi abandonné !");
+        clearInterval(timer);
+        startNewChallenge(); // Proposer un nouveau défi après un abandon
+    }
+};
+
+// Nouveau défi
+newChallengeButton.onclick = startNewChallenge;
+
+// Démarrage initial
+startNewChallenge();
+    
+    
+    // Message d'accueil personnalisé
+const welcomeMessage = "Samboufamilly.entertaiment™";
+
+// Fonction pour afficher le message d'accueil
+function showWelcomeMessage() {
+  alert(welcomeMessage);
+}
+
+// Appel du message d'accueil au démarrage
+showWelcomeMessage();
+startNewChallenge();
+    
+    
+   //burger-responsive
+    const burger = document.querySelector('.burger');
+    const navLinks = document.querySelector('.nav-links');
+
+    burger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
+
+
+
+</html>

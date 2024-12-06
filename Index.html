@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<head>
+<meta charset="UTF-8">
+<meta name ="viewport" content="width=device-width">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width , initial-scale=1.0 , user-scalable=no"  >
+<link rel="stylesheet" href="Styles.css">
+<style>@import url('https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap');</style>
+<script src="https://cdn.tailwindcss.com"></script>
+<title> Challenge Mania </title>
+</head>
+
+<body>
+<header>
+    <nav class="navbar" aria-label="Navigation principale">
+     <div class="logo">Challenge Mania</div>
+      <ul class="nav-links">
+        <li><a href="#about" aria-label="En savoir plus sur nous">À propos</a></li>
+        <li><a href="#services" aria-label="Découvrir nos services">Services</a></li>
+        <li><a href="#contact" aria-label="Nous contacter">Contact</a></li>
+      </ul>
+      <div class="burger" aria-label="Menu">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+    </nav>   
+</header>
+
+    <main>
+        <section class="intro">
+            <h1>Bienvenue sur Challenge Mania</h1>
+            <p>Oseriez-vous relever le défi ?<br> Affrontez vos amis avec notre sélecteur aléatoire de défis amusants pour animer vos soirées !</p>
+        </section>
+
+        <section class="start">
+            <button type="submit" id="btn-start">Commencez</button>
+        </section>
+        
+         <audio id="sound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
+
+        
+        
+    </main>
+  
+  <script>
+    const bouton = document.getElementById("btn-start");
+
+// Liste des sons
+const sons = [
+  "https://www.soundjay.com/button/beep-01a.wav",
+  "https://www.soundjay.com/button/beep-02.wav",
+  "https://www.soundjay.com/button/beep-03.wav"
+];
+
+let fuiteCount = 0; // Compteur de fuites
+const maxFuites = 5; // Limite de fuites
+
+bouton.addEventListener("mouseover", () => {
+  if (fuiteCount < maxFuites) {
+    // Sélectionner un son aléatoire
+    const randomSon = new Audio(sons[Math.floor(Math.random() * sons.length)]);
+    randomSon.play();
+
+    // Changer la position du bouton
+    const x = Math.random() * (window.innerWidth - bouton.offsetWidth);
+    const y = Math.random() * (window.innerHeight - bouton.offsetHeight);
+    bouton.style.left = `${x}px`;
+    bouton.style.top = `${y}px`;
+
+    // Incrémenter le compteur
+    fuiteCount++;
+  } else {
+    // Rendre le bouton cliquable
+    bouton.innerText = "Clique-moi maintenant !";
+    bouton.disabled = false;
+  }
+});
+
+  bouton.addEventListener("click", () => {
+    alert("Félicitations ! Tu peux accéder au jeu. 🎉");
+    // Rediriger vers le jeu
+    window.location.href = "dual.html";
+  });
+
+  </script>
+
+ <script>
+    const burger = document.querySelector('.burger');
+    const navLinks = document.querySelector('.nav-links');
+
+    burger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>
