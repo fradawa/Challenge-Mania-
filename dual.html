@@ -30,12 +30,11 @@
   </header>
   
   <main>
-  
   <div class="challenge-box">
     <h1 id="challenge-title">Défi en cours</h1>
     <p id="challenge-description">Prêt à relever le défi ?</p>
 
-<div id="countdown">30</div> <!-- Compte à rebours -->
+    <div id="countdown">30</div> <!-- Compte à rebours -->
     <input type="text" id="userInput" placeholder="Votre réponse ici" />
     <br>
   <section>
@@ -43,8 +42,7 @@
     <button class="btn-abandon" id="abandon">Abandonner</button>
     <button class="btn-new-challenge" id="new-challenge">Nouveau Défi</button>
   </section>
-</div>
-
+  </div>
 </main>
 
 <footer>
@@ -57,7 +55,7 @@
   <script>
     // Liste des défis
 const challenges = [
-  { title: "Chante !", description: "Chante une chanson populaire à haute voix.", answer: "terminé", autovalidate: true },
+  { title: "Chante !", description: "Chante une chanson populaire à haute voix.", answer: "", autovalidate: true },
   { title: "Selfie inversé !", description: "Prends un selfie en te mettant à l'envers (la tête en bas).", answer: "", autovalidate: true  },
   { title: "Danse !", description: "Fais une danse ridicule pendant 30 secondes devant tout le monde.", answer: "", autovalidate: true  },
   { title: "Mime un animal !", description: "Imite le bruit et les mouvements d'une vache pendant 10 secondes.", answer: "" , autovalidate: true},
@@ -79,7 +77,16 @@ const challenges = [
   { title: "Bizarre !", description: "Change ton prénom pour quelque chose d'absurde pendant 5 minutes.", answer: "", autovalidate: true},
   { title: "Selfie animal !", description: "Prends un selfie en imitant un animal de ton choix.", answer: "" , autovalidate: true},
   { title: "Mot interdit !", description: "Choisis un mot interdit (exemple : 'oui') et ne le dis pas pendant 3 minutes.", answer: "" , autovalidate: true},
-  { title: "Défi physique !", description: "Fais le tour de la pièce en sautillant sur un pied.", answer: "" , autovalidate: true}
+  { title: "Défi physique !", description: "Fais le tour de la pièce en sautillant sur un pied.", answer: "" , autovalidate: true},
+  { title: "Logique nocturne", description: "Je commence la nuit mais je finis le matin, et pourtant je n'apparais jamais dans la journée. Qui suis-je ?", answer: "N" || "la lettre 'n' ", },
+  { title: "Le secret", description: "Si tu m’as, tu veux me partager. Si tu me partages, tu ne m’as plus. Qui suis-je ?", answer: "Un secret", autovalidate: ""},
+  { title: "Fumée électrique", description: "Un train électrique se déplace vers le nord à 100 km/h, et le vent souffle vers le sud à 50 km/h. Dans quelle direction va la fumée ?", answer: "Il n’y a pas de fumée, c’est un train électrique"},
+  { title: "Les traces", description: "Plus tu en prends, plus tu en laisses derrière toi. Que suis-je ?", answer: "Des pas" },
+  { title: "Chiffre mystère", description: "Quel chiffre reste le même même si on le retourne ?", answer: "8" },
+  { title: "Le sans repos", description: "Je me déplace la nuit, mais je ne dors jamais. Que suis-je ?", answer: "Un rêve"},
+  { title: "Petit et rapide", description: "Je suis petit, rapide et j'aime être à l'intérieur d'un ordinateur. Que suis-je ?", answer: "Une souris"},
+  { title: "Enigme des mois", description: "Combien de mois dans l'année ont 28 jours ?", answer: "Tous les mois" },
+   // { title: "", description: "", answer: "" , autovalidate: },
 ];
 
 let countdown = 30; // Temps pour le compte à rebours
@@ -172,4 +179,4 @@ startNewChallenge();
 
 
 
-</html>
+  </html>
