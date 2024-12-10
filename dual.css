@@ -73,14 +73,6 @@ main{
   margin-top: 20px;
 }
 
-section{
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
-  gap: 10px;
-  padding: 15px;
-}
-
 .challenge-box {
   background: #fff;
   border-radius: 10px;
@@ -99,8 +91,6 @@ section{
   max-width: 200px;
   font-size: 1rem;
 }
-
-
 
 #countdown {
   font-size: 2rem;
@@ -133,6 +123,12 @@ button {
   color: white;
 }
 
+section{
+  margin-top: 20px;
+  gap: 10px;
+  padding: 15px;
+}
+
 @media (max-width: 768px) {
   .nav-links {
     display: none;
@@ -152,6 +148,10 @@ button {
 
   .burger {
     display: block;
+  }
+  
+  .challenge-box {
+    width: 95%;
   }
 }
 
@@ -185,4 +185,4 @@ footer {
   opacity: 0.9;
   color: black;
   font-size: 1.3rem;
-}
+  }
