@@ -128,16 +128,19 @@ function startTimer(correctAnswer) {
     }, 1000);
 
     // Validation de la réponse
+    function showanswer() {
+    return correctAnswer; // Renvoie la réponse correcte
+}
+
     validateButton.onclick = () => {
         if (userInput.value.toLowerCase().trim() === correctAnswer.toLowerCase().trim()) {
             clearInterval(timer);
             alert("Bravo ! C'est la bonne réponse.");
             startNewChallenge(); // Lancer un nouveau défi automatiquement après une bonne réponse
         } else {
-            alert("Mauvaise réponse, essayez encore !");
+            alert("Perdu! La réponse est : " + showanswer()+ startNewChallenge());
         }
     };
-}
 
 // Abandon du défi
 abandonButton.onclick = () => {
