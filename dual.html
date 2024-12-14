@@ -138,10 +138,10 @@ function startTimer(correctAnswer) {
             alert("Bravo ! C'est la bonne réponse.");
             startNewChallenge(); // Lancer un nouveau défi automatiquement après une bonne réponse
         } else {
-            alert("Perdu! La réponse est : " + showanswer()+ startNewChallenge());
+            alert("Perdu! La réponse est : " + showanswer()); startNewChallenge();
         }
     };
-}
+    
 
 // Abandon du défi
 abandonButton.onclick = () => {
